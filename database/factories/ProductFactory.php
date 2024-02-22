@@ -20,6 +20,7 @@ class ProductFactory extends Factory
             'name' => fake()->words(2, true),
             'supplier_id' => fake()->numberBetween(1, 10),
             'description' => fake()->text(),
+            'image' => fake()->imageUrl(640, 480, 'food'),
             'price' => fake()->randomFloat(2, 1, 100),
             'stock' => fake()->numberBetween(1, 100),
         ];
