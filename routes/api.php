@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/catalogue", "App\Http\Controllers\Api\ProductController@index")->name("catalogue.index");
+Route::get("/product", "App\Http\Controllers\Api\ProductController@index")->name("product.index");
 Route::get("/product/{product}", "App\Http\Controllers\Api\ProductController@show")->name("product.show");
 
 Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
