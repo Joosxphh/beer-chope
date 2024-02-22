@@ -1,13 +1,14 @@
 import "./App.css";
-import { UserIcon } from "@heroicons/react/24/solid";
+import { Nav } from "./component/header";
+import { CategoryLeftPan } from "./component/body";
 
-function App() {
+const App = () => {
   return (
-    <div className="bg-purple-500">
-      Hello world!
-      <UserIcon className="w-4" />
+    <div className="App">
+      <Nav />
+      <CategoryLeftPan />
     </div>
   );
-}
+};
 
 export default App;
