@@ -29,7 +29,7 @@
                         <p class="text-gray-700">
                             Catégories :
                         @foreach($product->categories as $category)
-                            <span class="bg-{{$category->color}}-100 text-{{$category->color}}-800 shadow-md text-xs font-medium me-2 px-2.5 py-0.5 rounded">{{$category->name}}</span>
+                            <span class="bg-{{$category->color}}-100 text-{{$category->color}}-800 shadow-md text-xsgit font-medium me-2 px-2.5 py-0.5 rounded">{{$category->name}}</span>
                         @endforeach
                         </p>
                         <!-- Date d'ajout du produit -->
