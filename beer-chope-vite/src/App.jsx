@@ -1,12 +1,12 @@
 import "./App.css";
 import { Nav } from "./component/header";
-import { CategoryLeftPan } from "./component/body";
+import { CategoryProduct } from "./component/body";
 
-const App = () => {
+const App = ({ darkMode, toggleDarkMode }) => {
   return (
-    <div className="App">
-      <Nav />
-      <CategoryLeftPan />
+    <div className={`${darkMode && "dark"} m-0`}>
+      <Nav toggleDarkMode={toggleDarkMode} />
+      <CategoryProduct />
     </div>
   );
 };
