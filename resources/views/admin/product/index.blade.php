@@ -1,12 +1,16 @@
 <x-layout>
         <h1 class="font-bold text-3xl mb-10">Les produits</h1>
 
+    <a href="{{ route('product.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-4">Ajouter un produit</a>
+
         @foreach($products as $product)
 
         <div class="max-w-screen-xl mx-auto p-8">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden flex items-center">
                 <!-- Image du produit à gauche, occupant un cinquième de la largeur -->
-                <img class="w-1/5 h-20 object-cover object-center mr-4" src="{{$product->image}}" alt="Image du produit">
+
+
+                <img class=" h-20 object-cover object-center mr-4" src="{{ asset('storage/covers/' . $product->image) }}" alt="Image du produit">
 
                 <div class="flex-1 flex items-center justify-between">
                     <!-- Nom du produit et ID du produit -->
@@ -29,20 +33,23 @@
                         <p class="text-gray-700">
                             Catégories :
                         @foreach($product->categories as $category)
-                            <span class="bg-{{$category->color}}-100 text-{{$category->color}}-800 shadow-md text-xsgit font-medium me-2 px-2.5 py-0.5 rounded">{{$category->name}}</span>
+                            <span class="bg-{{$category->color}}-100 text-{{$category->color}}-800  font-medium me-2 px-2.5 py-0.5 rounded">{{$category->name}}</span>
                         @endforeach
                         </p>
-                        <!-- Date d'ajout du produit -->
-                        <p class="text-gray-700">Ajouté le : {{$product->created_at}}</p>
 
                         <!-- Fournisseur du produit -->
-                        <p class="text-gray-700">Fournisseur : Nom du Fournisseur</p>
+                        <p class="text-gray-700">Fournisseur : {{$product->supplier->name}}</p>
                     </div>
 
                     <!-- Boutons de la carte -->
                     <div class="flex flex-col items-end">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2">Modifier l'article</button>
-                        <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Supprimer l'article</button>
+                        <a href="{{ route('product.show', $product) }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mb-2 mr-2">Voir l'article</a>
+                        <a href="{{ route('product.edit', $product) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2 mr-2">Modifier l'article</a>
+                        <form action="{{ route('product.delete', $product) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2">Supprimer l'article</button>
+                        </form>
                     </div>
                 </div>
             </div>

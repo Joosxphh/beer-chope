@@ -27,7 +27,7 @@ class CreateProductRequest extends FormRequest
             "image" => "required|file|image|mimes:jpg,png,jpeg|max:10024",
             "stock" => "required|numeric|min:0",
             "price" => "required|numeric|min:0",
-            "supplier_id" => "required|exists:App\Models\Editor,id",
+            "supplier_id" => "required|exists:App\Models\Supplier,id",
         ];
     }
 }
