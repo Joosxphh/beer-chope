@@ -4,12 +4,6 @@
     <div class="max-w-2xl mx-auto p-8 bg-white shadow-md" style="min-height: 92vh;">
         <h1 class="text-3xl font-bold mb-6">Modifier le produit</h1>
 
-        @if (session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-                }
-                </div>
-                @endif
 
         <form action="{{ route('product.update', $product) }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -20,13 +14,13 @@
                 @error('title')
                 <div class="text-red-500">{{ $message }}</div>
                 @enderror
-                <input type="text" name="title" value="{{ $product->name }}" class="w-full border border-gray-300 p-2 rounded" required>
+                <input type="text" name="name" value="{{ $product->name }}" class="w-full border border-gray-300 p-2 rounded" required>
             </div>
 
             <div class="mb-4">
                 <label for="description" class="block text-gray-600 font-semibold">Description :</label>
                 @error('description')
-                <div class="text-red-500">{{ $²message }}</div>
+                <div class="text-red-500">{{ $message }}</div>
                 @enderror
                 <textarea name="description" class="w-full border border-gray-300 p-2 rounded" required>{{ $product->description }}</textarea>
             </div>
@@ -44,7 +38,7 @@
                 @error('cover')
                 <div class="text-red-500">{{ $message }}</div>
                 @enderror
-                <input type="file" name="cover" value="{{ $product->image }}" accept="image/*" class="w-full border border-gray-300 p-2 rounded" required>
+                <input type="file" name="cover" value="{{ $product->image }}" accept="image/*" class="w-full border border-gray-300 p-2 rounded">
                 <img src="{{ asset('storage/covers/' . $product->image) }}" class="h-40 rounded-tx-layout" alt="Image du produit">
             </div>
 
@@ -70,7 +64,7 @@
                 <label for="categories" class="block text-gray-700 font-semibold mb-2">Catégories :</label>
                 @foreach($categories as $category)
                     <div class="flex items-center mb-2">
-                        <input type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" class="mr-2 border border-gray-300 rounded">
+                        <input type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" class="mr-2 border border-gray-300 rounded" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
                         <label for="{{ $category->id }}" class="text-gray-700">{{ $category->name }}</label>
                     </div>
                 @endforeach

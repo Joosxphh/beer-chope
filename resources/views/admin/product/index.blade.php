@@ -1,12 +1,11 @@
 <x-layout>
-        <h1 class="font-bold text-3xl mb-10">Les produits</h1>
+    <h1 class="font-bold text-3xl mb-10">Les produits</h1>
 
     <a href="{{ route('product.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-4">Ajouter un produit</a>
 
-        @foreach($products as $product)
-
+    @foreach($products as $product)
         <div class="max-w-screen-xl mx-auto p-8">
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden flex items-center">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden flex items-center p-4">
                 <!-- Image du produit à gauche, occupant un cinquième de la largeur -->
 
 
@@ -43,12 +42,12 @@
 
                     <!-- Boutons de la carte -->
                     <div class="flex flex-col items-end">
-                        <a href="{{ route('product.show', $product) }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mb-2 mr-2">Voir l'article</a>
-                        <a href="{{ route('product.edit', $product) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2 mr-2">Modifier l'article</a>
-                        <form action="{{ route('product.delete', $product) }}" method="post">
+                        <a href="{{ route('product.show', $product) }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mb-2 mr-2 w-44 text-center">Voir l'article</a>
+                        <a href="{{ route('product.edit', $product) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2 mr-2 w-44 text-center">Modifier l'article</a>
+                        <form action="{{ route('product.destroy', $product) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2">Supprimer l'article</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2 w-44 text-center">Supprimer l'article</button>
                         </form>
                     </div>
                 </div>

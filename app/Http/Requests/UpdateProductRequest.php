@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -17,14 +18,14 @@ class UpdateProductRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     { {
             return [
                 "name" => "required|max:255|min:2",
                 "description" => "required|max:1000|min:10",
-                "image" => "file|image|mimes:jpg,png,jpeg|max:10024",
+                "image" => "nullable|file|image|mimes:jpg,png,jpeg|max:1024",
                 "stock" => "required|numeric|min:0",
                 "price" => "required|numeric|min:0",
                 "supplier_id" => "required|exists:App\Models\Supplier,id",

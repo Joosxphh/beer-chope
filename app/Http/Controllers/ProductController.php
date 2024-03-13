@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Supplier;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Http\Client\Request;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
 
-    public function index(string $category = null): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(string $category = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         // Si on a une category
         if ($category) {
@@ -36,14 +38,14 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(Product $product): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function show(Product $product): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.product.show', [
             'product' => $product
         ]);
     }
 
-    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.product.create', [
             'suppliers' => Supplier::all(),
@@ -51,7 +53,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function delete(Product $product)
+    public function destroy(Product $product)
     {
         $product->delete();
 
@@ -67,10 +69,10 @@ class ProductController extends Controller
             'image' => $request->file('image')->hashName()
         ]);
 
-        return redirect()->route('product.show', $product);
+        return redirect()->route('admin.product.show', $product);
     }
 
-    public function edit(Product $product): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function edit(Product $product): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
 
         return view('admin.product.edit', [
@@ -82,20 +84,28 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $validatedData = $request->validated();
-
+        // Si on a une nouvelle image
         if ($request->hasFile('image')) {
-            $validatedData['image'] = $request->file('image')->store('image', 'public');
+            // On supprime l'ancienne image
+            Storage::delete('public/covers/' . $product->image);
+            // On stocke la nouvelle image
+            $request->file('image')->store('public/covers');
+            // On met à jour le produit
+            $product->update([
+                ...$request->validated(),
+                'price' => $request->input('price') * 100,
+                'image' => $request->file('image')->hashName()
+            ]);
+            // Sinon, on met à jour le produit sans changer l'image
+        } else {
+            $product->update($request->validated());
         }
 
-        $product->update($validatedData);
+        // On met à jour les catégories
+        $product->categories()->sync($request->input('categories'));
 
-        if ($request->has('categories')) {
-            $product->categories()->sync($request->categories);
-        }
+        //La méthode sync() synchronise les catégories du produit avec les catégories sélectionnées dans le formulaire cela passe par un tableau d'ID.
 
-        session()->flash('message', 'Produit mis à jour avec succès !');
-
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.show', $product);
     }
 }

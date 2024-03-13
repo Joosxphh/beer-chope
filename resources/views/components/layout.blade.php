@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title> {{ $title ?? 'Beer Chope' }}</title>
 </head>
-<body>
+<body class="bg-gray-100">
 {{--On ajoute la navbar et le flash message--}}
 <x-sidebar />
 {{--<x-flash />--}}

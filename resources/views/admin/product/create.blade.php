@@ -1,8 +1,9 @@
 <x-layout>
 
     {{-- Formulaire de création --}}
-    <form method="post" action="{{route('product.store')}}" class="max-w-md mx-auto p-6 rounded-md" enctype="multipart/form-data">
+    <form action="{{route('product.store')}}"  method="post" class="max-w-md mx-auto p-6 rounded-md" enctype="multipart/form-data">
         @csrf
+
         <div class="mb-4">
             <label for="name" class="block text-gray-700 font-semibold mb-2">Nom :</label>
             <input type="text" name="name" class="w-full bg-gray-100 border border-gray-300 text-gray-800 p-2 rounded focus:outline-none focus:border-blue-500" required>
@@ -27,7 +28,7 @@
             <label for="supplier_id" class="block text-gray-700 font-semibold mb-2">Fournisseur :</label>
             <select name="supplier_id" class="w-full bg-gray-100 border border-gray-300 text-gray-800 p-2 rounded focus:outline-none focus:border-blue-500" required>
                 @foreach($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    <option value="{{ $supplier->id }}" @if(old('supplier_id') == $supplier->id) selected @endif >{{ $supplier->name }}</option>
                 @endforeach
             </select>
         </div>

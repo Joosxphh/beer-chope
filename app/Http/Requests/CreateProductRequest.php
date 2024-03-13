@@ -24,7 +24,7 @@ class CreateProductRequest extends FormRequest
         return [
             "name" => "required|max:255|min:2",
             "description" => "required|max:1000|min:10",
-            "image" => "required|file|image|mimes:jpg,png,jpeg|max:10024",
+            "image" => "required|file|image|mimes:jpg,png,jpeg|max:1024",
             "stock" => "required|numeric|min:0",
             "price" => "required|numeric|min:0",
             "supplier_id" => "required|exists:App\Models\Supplier,id",
