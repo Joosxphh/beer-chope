@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// Ajouter middleware auth pour le rôle admin voir un autre role pour la gestion des articles.
+
+Route::get('/admin/', function () {
     return view('dashboard');
 });
 
-Route::get('/admin/product', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+// Product routes
+Route::resource('/admin/product', ProductController::class);
+
+// User routes
+Route::resource('/admin/user', App\Http\Controllers\UserController::class);
+
+
+
 

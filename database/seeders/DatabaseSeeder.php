@@ -32,21 +32,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'Brune',
             'description' => 'brune é uma cerveja lager premium',
             'slug' => 'brune',
-            'color' => 'green',
+            'color' => 'pink',
         ]);
 
         \App\Models\Category::factory()->create([
             'name' => 'Rousse',
             'description' => 'Rousse é uma cerveja lager premium',
             'slug' => 'rousse',
-            'color' => 'blue',
+            'color' => 'orange',
         ]);
 
         \App\Models\Category::factory()->create([
             'name' => 'Blanche',
             'description' => 'Blanche é uma cerveja lager premium',
             'slug' => 'blanche',
-            'color' => 'purple',
+            'color' => 'blue',
         ]);
 
         \App\Models\Category::factory()->create([
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Triple',
             'description' => 'Triple é uma cerveja lager premium',
             'slug' => 'triple',
-            'color' => 'pink',
+            'color' => 'purple',
         ]);
 
         $product = \App\Models\Product::factory(100)->create();
