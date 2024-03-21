@@ -1,4 +1,5 @@
 <x-layout>
+    <a href="{{ route('product.index') }}" class="text-blue-500 hover:text-blue-600">Revenir sur la liste des produits</a>
 
         <x-slot name="title">Modifier le produit</x-slot>
     <div class="max-w-2xl mx-auto p-8 bg-white shadow-md" style="min-height: 92vh;">
