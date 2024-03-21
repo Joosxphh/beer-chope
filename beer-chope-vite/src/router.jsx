@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import App from "./App.jsx";
-import ProductShow from "./ProductShow.jsx";
+import App from "./page/Home/Home.jsx";
+import ProductShow from "./page/ProductShow/ProductShow.jsx";
 
 const AppRouter = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -16,7 +16,7 @@ const AppRouter = () => {
           element={<App darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
         />
         <Route
-          path="/product"
+          path="/product/:id"
           element={
             <ProductShow darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           }
