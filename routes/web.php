@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,11 +23,13 @@ Route::get('/admin/', function () {
     return view('dashboard');
 });
 
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 // Product routes
 Route::resource('/admin/product', ProductController::class);
 
 // User routes
-Route::resource('/admin/user', App\Http\Controllers\UserController::class);
+Route::resource('/admin/user', UserController::class);
 
 
 
