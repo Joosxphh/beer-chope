@@ -106,6 +106,6 @@ class ProductController extends Controller
 
         //La méthode sync() synchronise les catégories du produit avec les catégories sélectionnées dans le formulaire cela passe par un tableau d'ID.
 
-        return redirect()->route('admin.product.show', $product);
+        return redirect()->route('product.show', $product);
     }
 }
