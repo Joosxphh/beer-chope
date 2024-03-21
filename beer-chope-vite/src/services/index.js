@@ -23,3 +23,6 @@ export const getProducts = async () =>
 
 export const getOneProduct = async (id) =>
   request(`http://127.0.0.1:8000/api/product/${id}`, "GET", null);
+
+export const login = async (body) =>
+  request("http://127.0.0.1:8000/api/login", "POST", body);

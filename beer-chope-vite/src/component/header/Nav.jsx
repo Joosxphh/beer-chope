@@ -20,12 +20,11 @@ const Nav = ({ toggleDarkMode }) => {
             </Link>
           </li>
           <li>
-            <a
-              href="#"
-              className="font-semibold hover:text-gray-300 p-4 text-gray-400 dark:text-white"
-            >
-              Products
-            </a>
+            <Link to="/login">
+              <p className="font-semibold hover:text-gray-300 p-4 text-gray-400 dark:text-white">
+                Se connecter
+              </p>
+            </Link>
           </li>
           <li>
             <a
