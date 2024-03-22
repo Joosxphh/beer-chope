@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../../services";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,10 +20,15 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login(formData);
-      console.log(response);
+      if (response.token) localStorage.setItem("token", response.token);
+      window.location.href = "/";
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+
+  const handleRedirectToHome = () => {
+    window.location.href = "/";
   };
 
   return (
@@ -126,7 +132,24 @@ const Login = () => {
             </button>
           </div>
         </form>
+
+        <div className="text-center">
+          <Link
+            to=""
+            onClick={() => handleRedirectToHome()}
+            className="block mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Retour à l'accueil
+          </Link>
+          <Link
+            to="/register"
+            className="block mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Créer un compte
+          </Link>
+        </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

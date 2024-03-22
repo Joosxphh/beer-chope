@@ -1,13 +1,12 @@
 import "./Home.css";
-import { Nav } from "../../component/header";
+
 import { CategoryProduct } from "../../component/body";
 import { SkeletonTheme } from "react-loading-skeleton";
 
-const Home = ({ darkMode, toggleDarkMode }) => {
+const Home = ({ darkMode }) => {
   return (
-    <SkeletonTheme baseColor="#888888" highlightColor="#fff">
+    <SkeletonTheme baseColor="#D3D3D3" highlightColor="#fff">
       <div className={`${darkMode && "dark"} m-0`}>
-        <Nav toggleDarkMode={toggleDarkMode} />
         <CategoryProduct />
       </div>
     </SkeletonTheme>
