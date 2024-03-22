@@ -12,12 +12,19 @@ const Nav = ({ toggleDarkMode, darkMode, authUser, logout }) => {
     window.location.reload();
   };
 
+  const handleRegisterClick = () => {
+    navigate("/register");
+    window.location.reload();
+  };
+
   const handleLogout = () => {
     logout();
 
     toast.success("Vous avez été déconnecté avec succès");
 
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   };
 
   return (
@@ -48,7 +55,7 @@ const Nav = ({ toggleDarkMode, darkMode, authUser, logout }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/signup">
+                <Link to="" onClick={handleRegisterClick}>
                   <p className="font-semibold hover:text-gray-300 text-gray-400 dark:text-white">
                     Créer un compte
                   </p>
