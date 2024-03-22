@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -25,27 +27,38 @@ class UserController extends Controller
 
     public function show(User $user): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $orders = $user->orders;
+
         return view('admin.user.show', [
-            'user' => $user
+            'user' => $user,
+            'orders' => $orders,
         ]);
     }
 
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('admin.user.create');
+        $roles = Role::all();
+
+        return view('admin.user.create', [
+            'roles' => $roles
+        ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CreateUserRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+        $validated = $request->validated();
+
+        $hashedPassword = Hash::make($validated['password']);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $hashedPassword,
+            'address' => $validated['address'],
+            'role_id' => $validated['role_id']
         ]);
 
-        User::create($request->all());
-
-        return redirect()->route('admin.user.index');
+        return redirect()->route('user.show', $user);
     }
 
     public function edit(User $user): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

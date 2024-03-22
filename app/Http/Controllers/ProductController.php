@@ -12,28 +12,32 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
 {
 
-    public function index(string $category = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(Request $request, string $category = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         // Si on a une category
         if ($category) {
-
             $products = Product::whereHas('categories', function (Builder $query) use ($category) {
                 $query->where('slug', $category);
-            })->paginate(15);
+            });
 
             $category = Category::where('slug', $category)->first();
         } else {
-            $products = Product::paginate(15);
+            $products = Product::query();
+        }
+
+        if($request->has('trashed')) {
+            $products = $products->withTrashed();
         }
 
         return view('admin.product.index', [
-            'products' => $products,
+            'products' => $products->paginate(20),
             'category' => $category
         ]);
     }
@@ -57,7 +61,13 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return $this->index();
+        return redirect()->route('product.index');
+    }
+
+    public function restore ($id)
+    {
+        Product::withTrashed()->find($id)->restore();
+        return redirect()->route('product.index');
     }
 
     public function store(CreateProductRequest $request): RedirectResponse
