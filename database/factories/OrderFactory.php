@@ -19,7 +19,7 @@ class OrderFactory extends Factory
         return [
             'user_id' => fake()->numberBetween(1, 50),
             'total_price' => fake()->randomFloat(2, 1, 100),
-            'status' => fake()->randomElement(['pending', 'processing', 'completed', 'declined']),
+            'status' => fake()->randomElement(['pending', 'processing', 'paid', 'send', 'declined']),
         ];
     }
 }
