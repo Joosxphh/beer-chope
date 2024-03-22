@@ -45,11 +45,6 @@
                     <div class="flex flex-col items-end">
                         <a href="{{ route('product.show', $product) }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mb-2 mr-2 w-44 text-center">Voir l'article</a>
                         <a href="{{ route('product.edit', $product) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2 mr-2 w-44 text-center">Modifier l'article</a>
-{{--                        <form action="{{ route('product.destroy', $product) }}" method="post">--}}
-{{--                            @csrf--}}
-{{--                            @method('DELETE')--}}
-{{--                            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2 w-44 text-center">Supprimer l'article</button>--}}
-{{--                        </form>--}}
                     </div>
                 </div>
             </div>

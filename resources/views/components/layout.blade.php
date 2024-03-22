@@ -10,7 +10,9 @@
 </head>
 <body class="bg-gray-100">
 {{--On ajoute la navbar et le flash message--}}
-<x-sidebar />
+@if (!$attributes->has('no-sidebar'))
+    <x-sidebar />
+@endif
 {{--<x-flash />--}}
 <div >
     <div class="ml-18 mr-8 mt-8">

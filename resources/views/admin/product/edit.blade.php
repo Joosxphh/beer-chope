@@ -12,7 +12,7 @@
 
             <div class="mb-4">
                 <label for="title" class="block text-gray-600 font-semibold">Titre :</label>
-                @error('title')
+                @error('name')
                 <div class="text-red-500">{{ $message }}</div>
                 @enderror
                 <input type="text" name="name" value="{{ $product->name }}" class="w-full border border-gray-300 p-2 rounded" required>
