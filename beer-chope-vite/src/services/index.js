@@ -13,6 +13,8 @@ const request = async (url, method = "GET", body = null) => {
   }
 
   const response = await fetch(url, options);
+  if (response.status === 201) return response;
+
   const data = await response.json();
 
   return data;
@@ -48,6 +50,9 @@ export const getOneProduct = async (id) =>
 
 export const login = async (body) =>
   request("http://127.0.0.1:8000/api/login", "POST", body);
+
+export const register = async (body) =>
+  request("http://127.0.0.1:8000/api/register", "POST", body);
 
 export const getUser = async () =>
   protectedRequest("http://127.0.0.1:8000/api/user", "GET", null);
