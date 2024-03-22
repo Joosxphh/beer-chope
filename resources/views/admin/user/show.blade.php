@@ -7,16 +7,24 @@
             <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
             <p class="text-gray-500">ID de l'Utilisateur: {{ $user->id }}</p>
             <p class="text-gray-700">Email: {{ $user->email}}</p>
-            <p class="text-gray-700 mb-8">Rôle: {{$user->role->role}}</p>
+            <p class="text-gray-700">Rôle: {{$user->role->role}}</p>
+            <p class="text-gray-700 mb-8">Adresse: {{ $user->address }}</p>
+
 
         <!-- Historique des commandes -->
             <h3 class="text-lg font-semibold pt4 mb-4">Historique des Commandes</h3>
             <ul>
-                <!-- Exemple de commande -->
-                <li class="mb-4">
-                    <p class="text-gray-700">Commande #1: Nom du Produit 1, Nom du Produit 2, ...</p>
-                    <p class="text-gray-500">Date de Commande: 2024-02-22</p>
-                </li>
+                @foreach($orders as $order)
+                    <li class="mb-4">
+                        <p class="text-gray-700">Commande #{{ $order->id }}: </p>
+                        <p class="text-gray-500">Date de Commande: {{ $order->created_at }}</p>
+                    </li>
+                @endforeach
+
+                @if($orders->isEmpty())
+                    <p class="text-gray-700">Cet utilisateur n'a pas encore passé de commande.</p>
+                @endif
+
             </ul>
 
         <!-- Boutons d'action alignés à droite -->

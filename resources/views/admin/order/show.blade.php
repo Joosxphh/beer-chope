@@ -9,7 +9,7 @@
             <p class="text-gray-700">Statut: {{ $order->status }}</p>
             <p class="text-gray-700">Créée le: {{ $order->created_at }}</p>
             <p class="text-gray-700">Modifiée le: {{ $order->updated_at }}</p>
-            
+
 
         <h2 class="text-lg font-semibold pt4 mt-6 mb-4">Informations du client </h2>
 
@@ -25,16 +25,16 @@
                         <img class=" h-20 object-cover object-center mr-4" src="{{ asset('storage/covers/' . $item->product->image) }}" alt="Image du produit">
                         <p>{{ $item->product->name }}</p>
                         <p>Quantité: {{ $item->quantity }}</p>
-                        <p> Prix unité : {{$item->product->price }}</p>
-                        <p>Prix: {{ $item->product->price *  $item->quantity}}</p>
+                        <p> Prix unité : {{$item->product->price }} €</p>
+                        <p>Prix: {{ $item->product->price *  $item->quantity}} €</p>
                     </li>
                 @endforeach
             </ul>
 
         @if($order->status == 'paid')
-            <form method="post">
+            <form method="post" action="{{ route('order.validate', $order) }}">
                 @csrf
-                <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Valider la commande</button>
+                <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2">Commande expedié </button>
             </form>
         @endif
 

@@ -13,7 +13,7 @@
 @if (!$attributes->has('no-sidebar'))
     <x-sidebar />
 @endif
-{{--<x-flash />--}}
+<x-flash></x-flash>
 <div >
     <div class="ml-18 mr-8 mt-8">
     {{ $slot }}

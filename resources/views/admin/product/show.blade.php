@@ -3,7 +3,10 @@
             <a href="{{ route('product.index') }}" class="text-blue-500 hover:text-blue-600">Revenir sur la liste des produits</a>
             <div class="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col h-full">
                 <div class="flex-1 p-8 flex items-start">
-                    <!-- Informations du produit -->
+
+
+
+
                     <div class="flex-1">
                         <div>
                             <h2 class="text-2xl font-semibold">{{$product->name}}</h2>
@@ -28,11 +31,15 @@
                         <!-- Boutons de la carte alignés horizontalement -->
                         <div class="flex items-center">
                             <a href="{{ route('product.edit', $product) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded  mr-2">Modifier l'article</a>
-                            <form action="{{ route('product.destroy', $product) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2">Supprimer l'article</button>
-                            </form>
+
+
+                                <form action="{{ route('product.destroy', $product) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2">Supprimer l'article</button>
+                                </form>
+
+
                         </div>
                     </div>
 

@@ -25,4 +25,8 @@
             </div>
         </div>
     </div>
+
+    <p>5 dernières commandes / commandes à valider / nombre inscrit dernière journée / nombre inscrit dernier mois</p>
+    <p>5 derniers produits ajoutés / produits en rupture de stock / produits les plus vendus</p>
+
 </x-layout>
