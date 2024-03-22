@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -31,7 +35,7 @@ class UserController extends Controller
         return view('admin.user.create');
     }
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required',
@@ -47,27 +51,28 @@ class UserController extends Controller
     public function edit(User $user): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.user.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::all()
         ]);
     }
 
-    public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $user->update($request->validated());
 
-        $user->update($request->all());
-
-        return redirect()->route('admin.user.index');
+        return redirect()->route('user.show', $user);
     }
 
-    public function destroy(User $user): \Illuminate\Http\RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
+        $user->name = '';
+        $user->email = Str::random(40);
+        $user->address = '';
+        $user->password = '';
+        $user->save();
         $user->delete();
 
-        return redirect()->route('admin.user.index');
+
+        return redirect()->route('user.index');
     }
 }
