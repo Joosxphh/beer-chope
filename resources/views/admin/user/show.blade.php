@@ -7,7 +7,7 @@
             <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
             <p class="text-gray-500">ID de l'Utilisateur: {{ $user->id }}</p>
             <p class="text-gray-700">Email: {{ $user->email}}</p>
-            <p class="text-gray-700 mb-8">Rôle: {{$user->role}}</p>
+            <p class="text-gray-700 mb-8">Rôle: {{$user->role->role}}</p>
 
         <!-- Historique des commandes -->
             <h3 class="text-lg font-semibold pt4 mb-4">Historique des Commandes</h3>
@@ -20,9 +20,13 @@
             </ul>
 
         <!-- Boutons d'action alignés à droite -->
-        <div class="mt-16">
-            <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Modifier</button>
-            <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Supprimer</button>
+        <div class="mt-16 flex gap-4">
+            <a href="{{ route('user.edit', $user) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded  mr-2">Modifier l'utilisateur</a>
+            <form action="{{ route('user.destroy', $user) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2">Supprimer l'utilisateur</button>
+            </form>
         </div>
     </div>
 

@@ -18,7 +18,7 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials)) {
             return response()->json(["message" => "Invalid credentials"], 401);
         }
-        //Permet de faire fonctionné le createToken dans VSCode, le com permet de paramétrer le type var $user
+        //Permet de faire fonctionner le createToken dans VSCode, le com permet de paramétrer le type var $user
         /** @var User $user */
         $user = Auth::user();
         $token = $user->createToken("auth_token");

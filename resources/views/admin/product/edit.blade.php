@@ -1,4 +1,5 @@
 <x-layout>
+    <a href="{{ route('product.index') }}" class="text-blue-500 hover:text-blue-600">Revenir sur la liste des produits</a>
 
         <x-slot name="title">Modifier le produit</x-slot>
     <div class="max-w-2xl mx-auto p-8 bg-white shadow-md" style="min-height: 92vh;">
@@ -11,7 +12,7 @@
 
             <div class="mb-4">
                 <label for="title" class="block text-gray-600 font-semibold">Titre :</label>
-                @error('title')
+                @error('name')
                 <div class="text-red-500">{{ $message }}</div>
                 @enderror
                 <input type="text" name="name" value="{{ $product->name }}" class="w-full border border-gray-300 p-2 rounded" required>
