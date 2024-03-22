@@ -37,7 +37,7 @@
             <label for="categories" class="block text-gray-700 font-semibold mb-2">Catégories :</label>
             @foreach($categories as $category)
                 <div class="flex items-center mb-2">
-                    <input type="checkbox" id="{{ $category->id }}" name="{{ $category->name }}" class="mr-2 border border-gray-300 rounded">
+                    <input type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" class="mr-2 border border-gray-300 rounded">
                     <label for="{{ $category->id }}" class="text-gray-700">{{ $category->name }}</label>
                 </div>
             @endforeach

@@ -23,7 +23,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ $order->id }}</td>
                         <td class="px-6 py-4 ">{{ $order->user->name }}, {{ $order->user->email }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $order->total_price }} €</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $order->status }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $order->status }} <span class="bg-{{$order->name}}-100 text-{{$order->name}}-800 font-medium me-2 px-2.5 py-0.5 rounded">{{ $order->name }}</span></td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $order->created_at }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $order->updated_at }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">

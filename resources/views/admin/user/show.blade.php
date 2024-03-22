@@ -16,8 +16,10 @@
             <ul>
                 @foreach($orders as $order)
                     <li class="mb-4">
-                        <p class="text-gray-700">Commande #{{ $order->id }}: </p>
-                        <p class="text-gray-500">Date de Commande: {{ $order->created_at }}</p>
+                        <a href="{{ route('order.show', $order) }}" class="text-cyan-500">
+                            <p>Commande #{{ $order->id }}: </p>
+                            <p>Date de Commande: {{ $order->created_at }}</p>
+                        </a>
                     </li>
                 @endforeach
 

@@ -20,8 +20,8 @@
             </div>
             {{-- Catégorie 4 --}}
             <div class="bg-white rounded-md shadow-md p-6 sm:col-span-1">
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Prix total des ventes</h3>
-                <p class="text-4xl font-semibold text-green-500">{{ $totalPaidOrders }} €</p>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Chiffre d'affaires</h3>
+                <p class="text-4xl font-semibold text-green-500">+ {{ $totalPaidOrders }} €</p>
             </div>
             {{-- Catégorie 5 - Commandes à valider --}}
             <div class="bg-white rounded-md shadow-md p-6 sm:col-span-1">

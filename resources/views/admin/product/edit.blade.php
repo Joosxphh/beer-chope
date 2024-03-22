@@ -54,6 +54,9 @@
 
             <div class="mb-4">
                 <label for="supplier_id" class="block text gray-600 font-semibold">Fournisseur :</label>
+                @error('description')
+                <div class="text-red-500">{{ $message }}</div>
+                @enderror
                 <select name="supplier_id" class="w-full border border-gray-300 p-2 rounded" required>
                     @foreach($suppliers as $supplier)
                         <option value="{{ $supplier->id }}" {{ $supplier->id == $product->supplier_id ? 'selected' : '' }}>{{ $supplier->name }}</option>
@@ -63,6 +66,9 @@
 
             <div class="mb-4">
                 <label for="categories" class="block text-gray-700 font-semibold mb-2">Catégories :</label>
+                @error('description')
+                <div class="text-red-500">{{ $message }}</div>
+                @enderror
                 @foreach($categories as $category)
                     <div class="flex items-center mb-2">
                         <input type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" class="mr-2 border border-gray-300 rounded" {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
