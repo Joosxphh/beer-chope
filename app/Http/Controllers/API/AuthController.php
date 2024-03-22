@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -20,10 +22,10 @@ class AuthController extends Controller
             return response()->json(["message" => "Invalid credentials"], 401);
         }
 
-        // Obtenir l'utilisateur authentifié
         /**
          * @var User $user
          */
+
         $user = Auth::user();
 
         // Générer le token d'authentification
@@ -36,6 +38,31 @@ class AuthController extends Controller
         ]);
     }
 
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'address' => 'string|max:255',
+        ]);
+
+        $roleId = $request->input('role_id', 1);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'address' => $request->address,
+            'role_id' => $roleId,
+        ]);
+
+        // Vous pouvez ajouter d'autres fonctionnalités comme l'envoi de courriel de confirmation, etc.
+
+        return response()->json(['message' => 'Utilisateur enregistré avec succès'], 201);
+    }
+
     public function getUser(Request $request)
     {
 
@@ -45,5 +72,6 @@ class AuthController extends Controller
         // Renvoyer l'utilisateur en réponse JSON
         return response()->json($user);
     }
+
 
 }
