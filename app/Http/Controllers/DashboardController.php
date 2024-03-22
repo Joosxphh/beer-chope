@@ -17,6 +17,10 @@ class DashboardController extends Controller
         $orders = Order::all();
         $users = User::all();
 
-        return view('dashboard', compact('products', 'orders', 'users'));
-    }
+        $usersLatest = User::latest()->take(5)->get();
+        $ordersLatest = Order::latest()->take(5)->get();
+        $paidOrdersCount = Order::where('status', 'paid')->count();
+        $totalPaidOrders = Order::where('status', 'paid')->sum('total_price');
+
+        return view('dashboard', compact('products', 'orders', 'users', 'usersLatest', 'ordersLatest', 'paidOrdersCount', 'totalPaidOrders'));    }
 }
