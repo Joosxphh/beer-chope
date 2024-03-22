@@ -92,7 +92,9 @@ class ProductController extends Controller
             'image' => $request->file('image')->hashName()
         ]);
 
-        return redirect()->route('admin.product.show', $product);
+        $product->categories()->attach($request->input('categories'));
+
+        return redirect()->route('product.show', $product);
     }
 
     public function edit(Product $product): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

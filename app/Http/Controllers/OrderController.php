@@ -30,7 +30,7 @@ class OrderController extends Controller
 
     public function validateOrder(Order $order): RedirectResponse
     {
-        $order->update(['status' => 'sends']);
+        $order->update(['status' => 'send']);
 
         return redirect()->route('order.show', $order);
     }
