@@ -5,10 +5,29 @@
     <a href="{{ route('product.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-4">Ajouter un produit</a>
     </div>
 
-    <form action="{{route('product.index')}}" method="get" >
 
-        <input type="checkbox" name="trashed" @if(request('trashed'))checked @endif onchange="this.form.submit()">
+    <form action="{{ route('product.index') }}" method="get" class="flex items-center">
+        <!-- Checkbox pour les produits supprimés -->
+        <div class="flex items-center mr-4">
+            <input type="checkbox" id="trashed" name="trashed" class="mr-2 rounded text-blue-500 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" @if(request('trashed')) checked @endif onchange="this.form.submit()">
+            <label for="trashed" class="text-gray-700">Afficher les produits supprimés</label>
+        </div>
+
+        <!-- Checkboxes pour les catégories -->
+        @foreach($categories as $category)
+            <div class="flex items-center mr-4">
+                <input type="checkbox" id="category_{{ $category->id }}" name="categories[]" value="{{ $category->id }}" class="mr-2 rounded text-blue-500 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" @if(in_array($category->id, request('categories', []))) checked @endif onchange="this.form.submit()">
+                <label for="category_{{ $category->id }}" class="text-gray-700">{{ $category->name }}</label>
+            </div>
+        @endforeach
     </form>
+
+
+
+
+
+
+
 
     @foreach($products as $product)
         <div class="max-w-screen-xl mx-auto p-1">

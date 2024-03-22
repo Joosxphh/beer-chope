@@ -21,7 +21,9 @@ class ProductController extends Controller
 
     public function index(Request $request, string $category = null): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        // Si on a une category
+        $categories = $request->input('categories');
+
+        // If we have a category
         if ($category) {
             $products = Product::whereHas('categories', function (Builder $query) use ($category) {
                 $query->where('slug', $category);
@@ -32,16 +34,27 @@ class ProductController extends Controller
             $products = Product::query();
         }
 
+        // If categories are provided in the request
+        if ($categories) {
+            foreach ($categories as $category) {
+                $products->whereHas('categories', function ($query) use ($category) {
+                    $query->where('categories.id', $category);
+                });
+            }
+        }
+
         if($request->has('trashed')) {
             $products = $products->withTrashed();
         }
 
+        $products = $products->paginate(20);
+
         return view('admin.product.index', [
-            'products' => $products->paginate(20),
-            'category' => $category
+            'products' => $products,
+            'category' => $category,
+            'categories' => Category::all()
         ]);
     }
-
     public function show(Product $product): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.product.show', [
