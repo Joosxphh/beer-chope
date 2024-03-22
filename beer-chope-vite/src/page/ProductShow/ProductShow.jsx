@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Nav } from "../../component/header";
 import {
   ImageProductLeft,
   ProductDescription,
@@ -10,7 +9,7 @@ import {
 
 import { getOneProduct } from "../../services";
 
-const ProductShow = ({ darkMode, toggleDarkMode }) => {
+const ProductShow = ({ darkMode }) => {
   const [product, setProduct] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(true);
   const { id } = useParams();
@@ -27,7 +26,6 @@ const ProductShow = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <Nav toggleDarkMode={toggleDarkMode} />
       <div className="flex flex-row">
         <ImageProductLeft />
         {isLoading ? <ProductLoading /> : <ProductDescription {...product} />}

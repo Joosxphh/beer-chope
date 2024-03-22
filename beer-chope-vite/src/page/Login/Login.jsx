@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../../services";
 
@@ -19,7 +19,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login(formData);
-      console.log(response);
+      if (response.token) localStorage.setItem("token", response.token);
+      window.location.href = "/";
     } catch (error) {
       console.error("Error:", error);
     }

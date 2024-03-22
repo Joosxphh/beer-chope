@@ -4,35 +4,62 @@ import App from "./page/Home/Home.jsx";
 import ProductShow from "./page/ProductShow/ProductShow.jsx";
 import Login from "./page/Login/Login.jsx";
 import ForgotPassword from "./page/ForgotPassword/ForgotPassword.jsx";
+import useLogin from "./hooks/useLogin";
+import Nav from "./component/header/Nav.jsx";
 
 const AppRouter = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
+  const { authUser, logout } = useLogin();
+
   return (
     <Router>
+      {!window.location.pathname.includes("/login") && (
+        <Nav
+          toggleDarkMode={toggleDarkMode}
+          darkMode={darkMode}
+          authUser={authUser}
+          logout={logout}
+        />
+      )}
       <Routes>
         <Route
           path="/"
-          element={<App darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
+          element={
+            <App
+              darkMode={darkMode}
+              authUser={authUser}
+              toggleDarkMode={toggleDarkMode}
+            />
+          }
         />
         <Route
           path="/product/:id"
           element={
-            <ProductShow darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+            <ProductShow
+              darkMode={darkMode}
+              authUser={authUser}
+              toggleDarkMode={toggleDarkMode}
+            />
           }
         />
         <Route
           path="/login"
           element={
-            <Login darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+            <Login
+              darkMode={darkMode}
+              authUser={authUser}
+              toggleDarkMode={toggleDarkMode}
+            />
           }
         />
         <Route
           path="/login/forgot-password"
           element={
             <ForgotPassword
+              authUser={authUser}
               darkMode={darkMode}
               toggleDarkMode={toggleDarkMode}
             />
