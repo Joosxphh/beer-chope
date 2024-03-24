@@ -50,4 +50,24 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function cart(): Order
+    {
+        $order = $this->orders()->where('status', 'cart')->first();
+
+        if (!$order) {
+            $order = Order::create([
+                'user_id' => $this->id,
+                'total_price' => 0,
+                'status' => 'cart',
+            ]);
+        }
+
+        return $order; // Make sure to return $order here
+    }
 }

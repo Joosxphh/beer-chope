@@ -11,6 +11,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'total_price',
+        "status"
+    ];
+
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
@@ -19,6 +25,23 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function calculateTotal(): void
+    {
+        $total = 0;
+        foreach ($this->orderItems as $orderItem) {
+            $total += $orderItem->price * $orderItem->quantity;
+        };
+
+        $this->update([
+            "total_price" => $total,
+        ]);
     }
 
 }
