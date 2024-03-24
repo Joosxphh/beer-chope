@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUser } from "../services";
+import { getUser, getCart } from "../services";
 
 const useLogin = () => {
   const [authUser, setAuthUser] = useState(null);
@@ -12,6 +12,14 @@ const useLogin = () => {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      const res = await getCart();
+      console.log(res);
+    };
+    fetchCart();
+  }, [authUser]);
 
   const logout = () => {
     localStorage.removeItem("token");

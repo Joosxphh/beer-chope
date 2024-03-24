@@ -7,6 +7,7 @@ const ProductList = ({
   products,
   selectedCategory,
   resetCategorySelected,
+  isAuth,
 }) => {
   return (
     <div
@@ -30,7 +31,12 @@ const ProductList = ({
         {isLoading
           ? skeletons.map((index) => <ProductSkeleton key={index} />)
           : products?.data.map((product, index) => (
-              <ProductCard key={index} isLoading={isLoading} {...product} />
+              <ProductCard
+                key={index}
+                isLoading={isLoading}
+                isAuth={isAuth}
+                {...product}
+              />
             ))}
       </div>
     </div>

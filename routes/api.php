@@ -18,11 +18,9 @@ Route::get("/product/{product}", "App\Http\Controllers\Api\ProductController@sho
 
 Route::post("/login", "App\Http\Controllers\Api\AuthController@login")->name("login");
 
-
 Route::post('/register', "App\Http\Controllers\Api\AuthController@register")->name("register");
 
 Route::middleware('auth:sanctum')->get('/user', 'App\Http\Controllers\Api\AuthController@getUser');
-
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get("/cart", "App\Http\Controllers\Api\CartController@show")->name("cart.show");
@@ -30,12 +28,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/cart/complete", "App\Http\Controllers\Api\CartController@complete")->name("cart.complete");
     Route::delete("/cart/delete/{orderItem}", "App\Http\Controllers\Api\CartController@delete")->name("cart.delete");
 });
-
-
-
-Route::middleware('auth:sanctum')->get('/user/token', function (Request $request) {
-    $user = $request->user();
-    $token = $user->createToken('API Token')->plainTextToken;
-    return response()->json(['token' => $token]);
-});
-

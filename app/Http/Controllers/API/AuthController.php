@@ -38,24 +38,23 @@ class AuthController extends Controller
         ]);
     }
 
-
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'address' => 'string|max:255',
+            'address'  => 'string|max:255',
         ]);
 
         $roleId = $request->input('role_id', 1);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'address' => $request->address,
-            'role_id' => $roleId,
+            'address'  => $request->address,
+            'role_id'  => $roleId,
         ]);
 
         // Vous pouvez ajouter d'autres fonctionnalités comme l'envoi de courriel de confirmation, etc.
@@ -72,6 +71,5 @@ class AuthController extends Controller
         // Renvoyer l'utilisateur en réponse JSON
         return response()->json($user);
     }
-
 
 }

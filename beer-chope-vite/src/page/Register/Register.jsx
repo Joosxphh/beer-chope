@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { register } from "../../services";
+import { register } from "../../services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,22 +23,29 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Vérifier si les mots de passe correspondent
       if (formData.password !== formData.confirmPassword) {
         toast.error("Les mots de passe ne correspondent pas");
         return;
       }
+      const _formData = {
+        ...formData,
+        name: `${formData.firstName} ${formData.lastName}`,
+      };
 
-      // const response = await register(formData);
-      // if (response.token) {
-      //   localStorage.setItem("token", response.token);
-      //   toast.success(
-      //     "Inscription réussie ! Redirection vers la page de connexion."
-      //   );
-      //   setTimeout(() => {
-      //     window.location.href = "/login";
-      //   }, 3000); // Rediriger après 3 secondes
-      // }
+      const response = await register(_formData);
+      console.log(response);
+      if (response.status === 400)
+        return toast.error("Une erreur s'est produite lors de l'inscription");
+
+      if (response.status === 201) {
+        localStorage.setItem("token", response.token);
+        toast.success(
+          "Inscription réussie ! Redirection vers la page de connexion."
+        );
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000); // Rediriger après 3 secondes
+      }
     } catch (error) {
       console.error("Error:", error);
       toast.error("Une erreur s'est produite lors de l'inscription");
