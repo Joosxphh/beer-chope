@@ -28,9 +28,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/cart/complete", "App\Http\Controllers\Api\CartController@complete")->name("cart.complete");
     Route::delete("/cart/delete/{orderItem}", "App\Http\Controllers\Api\CartController@delete")->name("cart.delete");
 });
-
-Route::middleware('auth:sanctum')->get('/user/token', function (Request $request) {
-    $user  = $request->user();
-    $token = $user->createToken('API Token')->plainTextToken;
-    return response()->json(['token' => $token]);
-});

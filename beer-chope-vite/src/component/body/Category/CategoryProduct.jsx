@@ -2,7 +2,7 @@ import CategoryLeftPan from "./CategoryLeftPan";
 import ProductList from "../Product/ProductList";
 import useProduct from "../../../hooks/useProduct";
 
-const CategoryProduct = () => {
+const CategoryProduct = ({ authUser }) => {
   const {
     products,
     skeletons,
@@ -26,6 +26,7 @@ const CategoryProduct = () => {
         isLoading={isLoading}
         selectedCategory={selectedCategory}
         resetCategorySelected={resetCategorySelected}
+        isAuth={!!authUser}
       />
     </div>
   );

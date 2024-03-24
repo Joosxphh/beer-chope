@@ -20,6 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login(formData);
+
       if (response.token) localStorage.setItem("token", response.token);
       window.location.href = "/";
     } catch (error) {

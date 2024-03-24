@@ -8,10 +8,14 @@ import {
 } from "@material-tailwind/react";
 
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
-const ProductCard = ({ name, price, description, image, id }) => {
+const ProductCard = ({ name, price, description, image, id, isAuth }) => {
   return (
-    <Card style={{ height: "300px", width: "260px" }} className="m-4">
+    <Card
+      style={{ minHeight: "320px", height: "content", width: "260px" }}
+      className="m-4"
+    >
       <CardHeader shadow={false} floated={false} className="h-24">
         <img
           src={image}
@@ -36,17 +40,28 @@ const ProductCard = ({ name, price, description, image, id }) => {
           {description}
         </Typography>
       </CardBody>
-      <CardFooter className="pt-0">
+      <CardFooter className="pt-0 flex flex-col justify-arround ">
         <Link to={`/product/${id}`}>
           <Button
             ripple={false}
             fullWidth={true}
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 mb-2"
           >
             En savoire plus
           </Button>
         </Link>
+        {isAuth && (
+          <Button
+            className="mb-2"
+            onClick={() =>
+              toast.success("Le produit à bien était ajouter au panier")
+            }
+          >
+            Ajouter au panier
+          </Button>
+        )}
       </CardFooter>
+      <ToastContainer />
     </Card>
   );
 };
